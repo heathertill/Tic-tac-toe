@@ -1,5 +1,41 @@
-.cell {
-    width: 100px;
+#header {
+    text-align: center;
+    font-size: 60px;
+    margin: 40px;
+    margin-bottom: 60px;
+}
+
+#tic-tac-toe {
+    border-spacing: 0px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin: 30px auto;
+}
+
+#tic-tac-toe td {
+    border: 2px solid #000;
     height: 100px;
-    background-color: lightblue;
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+#tic-tac-toe tr:first-child td { /* First row all columns */
+    border-top: none
+}
+
+#tic-tac-toe tr:last-child td { /* Last row all columns */
+    border-bottom: none
+}
+
+#tic-tac-toe tr td:first-child { /* First column of every row */
+    border-left: none;
+}
+
+#tic-tac-toe tr td:last-child { /* Last column of every row */
+    border-right: none;
+}
+
+.glyphicon {
+    color: black;
+    font-size: 80px;
 }
