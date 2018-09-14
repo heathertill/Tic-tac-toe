@@ -39,3 +39,9 @@
     color: black;
     font-size: 80px;
 }
+
+.winDiv {
+    text-align: center;
+    font-size: 50px;
+    color: crimson;
+  }
