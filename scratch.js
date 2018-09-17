@@ -1,7 +1,0 @@
-
-
-function clearGrid(){
-    $(".grid").remove();
-}; 
-
-
