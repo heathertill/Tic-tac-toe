@@ -68,6 +68,7 @@ body {
 
 #gameboard {
     background-color: #f1faee;
+    border: 7px double #1d3557;
     width: 400px;
     padding: 10px;
     margin: auto;
