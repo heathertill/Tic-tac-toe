@@ -1,8 +1,6 @@
 let moves = 0;
-let clicked = false;
 let reset = 0;
 let squares = document.querySelectorAll('#cell');
-let board = document.querySelector('#gameboard');
 let players = [[], []];
 let winners = [
     ['1', '2', '3'],
@@ -17,14 +15,20 @@ let winners = [
 
 let winDiv = document.createElement('div');
 let h3Winner = document.createElement('h3');
-winDiv.appendChild(h3Winner);
+let newGame = document.createElement('h3');
 document.body.appendChild(winDiv);
-h3Winner.setAttribute('class', 'winDiv');
-let child = h3Winner.firstChild;
+winDiv.appendChild(h3Winner);
+h3Winner.setAttribute('id', 'h3Winner');
+winDiv.appendChild(newGame);
+newGame.setAttribute('id', 'newGame');
+let startOver = document.createTextNode('Click on gameboard to play again');
 
 squares.forEach(function(cell) {
     cell.addEventListener('click', mark);
     cell.addEventListener('click', isWinner);
+    cell.addEventListener('click', catsGame)
+    cell.addEventListener('click', full);
+    cell.addEventListener('click', replay);
 });
 
 function mark(e) {
@@ -32,7 +36,7 @@ function mark(e) {
     let activeCell = e.target;
     let notEmpty = activeCell.hasAttribute('class');
     moves++;
-    if (notEmpty == true) {
+    if (notEmpty == true && reset != 1) {
         alert('This square is taken!');
     } else if (notEmpty == false) {
         if (moves % 2 == 0 && reset == 0) {
@@ -40,14 +44,13 @@ function mark(e) {
             icon.setAttribute('class', 'glyphicon glyphicon-record');
             let score2 = activeCell.textContent;
             players[1].push(score2);
-        } else if (reset == 0) {
+        } else if (moves % 2 != 0 && reset == 0) {
             e.target.appendChild(icon);
             icon.setAttribute('class', 'glyphicon glyphicon-remove');
             let score1 = activeCell.textContent;
             players[0].push(score1);
         }
     }
-    console.log(reset);
 }
 
 function isWinner() {
@@ -57,37 +60,42 @@ function isWinner() {
         for (j = 0; j < players.length; j++) {
             let winner = players[j].filter(checker);
             if (winner.length == players[j].length - 3) {
-                if (moves % 2 != 0) {
-                    ++reset;
-                    console.log(reset);
-                    let h3Text = document.createTextNode(
-                        'Congratulations Player 1!!!'
-                    );
+                if (moves % 2 != 0 && reset == 0) {
+                    let congrats1 = 'Congratulations Player 1!!!';
+                    let h3Text = document.createTextNode(congrats1);
                     h3Winner.appendChild(h3Text);
-
-                    if ((reset = 1)) {
-                        return;
-                    }
-                } else if (moves % 2 == 0) {
-                    let h3Text = document.createTextNode(
-                        'Congratulations Player 2!!!'
-                    );
+                    newGame.appendChild(startOver);
+                    return;
+                } else if (moves % 2 == 0 && reset == 0) {
+                    let congrats2 = 'Congratulations Player 2!!!';
+                    let h3Text = document.createTextNode(congrats2);
                     h3Winner.appendChild(h3Text);
-                    ++reset;
-                    console.log(reset);
-                    if ((reset = 1)) {
-                        return;
-                    }
+                    newGame.appendChild(startOver);
+                    return;
                 }
             }
         }
     }
-    console.log(reset);
+}
+
+function full() {
+    if (h3Winner.innerHTML == '') {
+    } else {
+        ++reset;
+    }
 }
 
 function replay() {
-    if ((reset = 1)) {
+    if (reset == 2) {
         window.location.reload(false);
-        console.log('fire');
+    }
+}
+
+function catsGame() {
+    if (moves == 9) {
+        let cat = "Cat's Game";
+        let h3Text = document.createTextNode(cat);
+        h3Winner.appendChild(h3Text);
+        newGame.appendChild(startOver);
     }
 }
